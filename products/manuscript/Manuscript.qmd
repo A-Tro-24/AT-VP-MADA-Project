@@ -33,7 +33,7 @@ Data: https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-
 There are 115,668 observations in this data set. The variables that were measured were the state where the death occurred, the sex of the person who died, and the age group that person falls into. In addition, the data set measured the number of deaths attributed to each of the following: COVID-19, Pneumonia, both COVID-19 and Pneumonia, Influenza, all three, and the total deaths. The reason there are so many observations is because the data set is split into three groups: by total, by year, and by year and month. The group name describes how many observations per state were represented (by total would be a cumulative summary of the by year/by year and month sections).
 
 ## Anything else important to report about the data?
-According to the data set, many observations were made null if the total number of deaths during the collection period was betwene 1-9. The CDC notes this is due to being in accordance with NCHS confidentiality standards. Also, for the purpose of our project and report, we will only be using the data which summarizes the total values for the year and each month (only using observations 1-2755; the by total group). This is for the purpose of simplicity while also allowing us to work with a smaller (but still sufficient) data set size.
+According to the data set, many observations were made null if the total number of deaths during the collection period was between 1-9. The CDC notes this is due to being in accordance with NCHS confidentiality standards. Also, for the purpose of our project and report, we will only be using the data which summarizes the total values for the year and each month (only using observations 1-2755; the by total group). This is for the purpose of simplicity while also allowing us to work with a smaller (but still sufficient) data set size.
 
 ## Question we want to answer with this data?
 We are using this data to answer what factors resulted in the most deaths to COVID, Influenza, and/or Pneumonia. In addition, we can use the fact that the data is separated by state to also analyze geographical influence/correlations as well.
@@ -50,25 +50,89 @@ We are looking to see if there are any relationships in the data.
 ## Data Analysis Plan?
 We plan to test the data using some sort of regression analysis or odds ratio to determine the correlation between predictors and outcome.
 
+```{r}
+# Locates the file locations. Simplifies recall
+RIDeaths <- here::here("data", "raw_data", "Provisional_COVID-19_Deaths_by_Sex_and_Age.csv")
+CovidDeaths <- here::here("data", "raw_data", "deaths.csv")
+GovData <- here::here("data", "raw_data", "government_22.xlsx")
+EconData <- here::here("data", "raw_data", "economics_22.xlsx")
+```
 
 ```{r}
 # Loads the data into R. The original data is in the "CSV" format
-raw_data <- read_csv("../../data/raw_data/Provisional_COVID-19_Deaths_by_Sex_and_Age.csv")
+raw_sa <- readr::read_csv(RIDeaths)
+raw_deaths <- readr::read_csv(CovidDeaths)
+raw_gov <- readxl::read_xlsx(GovData)
+raw_econ <- readxl::read_xlsx(EconData,sheet='per_capita_income')
+
 # Provides an overview of the data and data types in the data frame.
-glimpse(raw_data)
-summary(raw_data)
+dplyr::glimpse(raw_deaths)
+dplyr::glimpse(raw_sa)
+dplyr::glimpse(raw_gov)
+dplyr::glimpse(raw_econ)
 ```
 
 # Part 2
 ```{r}
 # Includes only the data we intend to use for our analysis.
-useable <- raw_data %>%
-# Identifies total values for each 
-                    filter(Group == "By Total") %>%
-# rids the dataset of "Notes" section
-                    select(!c(Footnote,`Data As Of`,`Start Date`,`End Date`,Group,Year,Month))
-glimpse(useable)
-summary(useable)
+new_sa <- raw_sa %>%
+# Identifies total values for Georgia subjects in the year 2020 only
+                    dplyr::filter(Year == 2020 & is.na(Month) & 
+                                  State == "Georgia" & 
+# Filters out redundancies caused by overlapping age intervals
+                                  `Age Group` %in% c("Under 1 year","1-4 years","5-14 years","15-24 years","25-34 years",
+                                                     "35-44 years","45-54 years","55-64 years","65-74 years","75-84 years",
+                                                     "85 years and over") &
+# Filters out overlaps due to totals rows
+                                  Sex %in% c("Male","Female")) %>%
+# Rids the dataset of "Notes" section and date variables
+                    dplyr::select(!c(Footnote,`Data As Of`,`Start Date`,`End Date`,Group,Year,Month,State))
+
+# Checks that the data was manipulated properly
+dplyr::glimpse(new_sa)
+```
+```{r}
+# Removes unwanted "+" symbols from some rows
+raw_deaths$age <- gsub('[^[:alnum:] ]','',raw_deaths$age)
+
+# Converts the age variable to numeric and capitalizes the county variable
+new_deaths <- raw_deaths %>%
+                        dplyr::mutate(age = as.numeric(age),
+                                      county = toupper(county))
+
+# Checks that the data was manipulated properly
+dplyr::glimpse(new_deaths)
+```
+
+
+```{r}
+# Uses the voting proportions from 2020 to identify party majority in each county
+new_gov <- raw_gov %>%
+                   dplyr::mutate(party_majority = ifelse(`2020 Votes Cast for President, Democratic Party, Percent`>
+                                                         `2020 Votes Cast for President, Republican Party, Percent`,
+                                                         "Democratic",
+                                                         "Republican")) %>%
+                   dplyr::select(County,party_majority)
+
+# Identifies the 2020 Per Capita Personal Income by county
+new_econ <- raw_econ %>%
+                     dplyr::select(County,`2020 Per Capita Personal Income`)
+```
+
+
+```{r}
+# Joins the data from the `new_econ` data frame to the `new_deaths` data frame based on the county variable
+join1 <- dplyr::left_join(new_deaths,new_econ,by=c("county"="County"))
+# Checks that the join worked
+dplyr::glimpse(join1)
+
+# Joins the data from the `new_gov` data frame to the `join1` data frame based on the county variable
+join2 <- dplyr::left_join(join1,new_gov,by=c("county"="County"))%>%
+# Reorders the variables in the desired order
+         dplyr::relocate(county,`2020 Per Capita Personal Income`,party_majority,.before=age)
+
+# Checks that the join worked
+glimpse(join2)
 ```
 
 
