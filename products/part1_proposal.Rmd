@@ -1,0 +1,33 @@
+---
+title: "Project Proposal"
+output: html_document
+---
+
+```{r, include=FALSE}
+#load the necessary packages.
+library(readxl)
+library(dplyr)
+library(here)
+```
+
+# Project Part 1
+Place the information for Part 1 here.
+
+## Data Preview
+```{r}
+#path to data
+#show data: load data, provide summary descriptions of it
+```
+Breifly describe what the data is, how it was collected, where it came from, how many observations, anything else important, etc.
+
+## Background
+Background of outcome/predictor/data
+
+What is the question we want to answer with the data?
+what are the outcomes of interest?
+what predictors are we focusing on?
+what relations/patterns are we looking for in the data?
+
+suggest analysis plans
+
+
