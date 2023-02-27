@@ -13,6 +13,7 @@ csl: ../apa.csl
 ---
 
 ```{r setup, include=FALSE}
+#Load necessary packages
 library(readr)
 library(tidyverse)
 ```

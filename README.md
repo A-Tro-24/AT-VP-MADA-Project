@@ -1,19 +1,41 @@
 # Overview
 
-A template file and folder structure for a data analysis project/paper done with R/Quarto/Github. 
+This repository contains the files, code, and data used for Aidan Troha and Vijay Panthayi's data analysis project/paper done with R/Quarto/Github.
+Below are the instructions needed to reproduce this repository and analysis in addition to an outline of the parts of this project and their contents.
 
-# Pre-requisites
+## Reproducing This Project
 
-This is a template for a data analysis project using R, Quarto, Github and a reference manager that can handle bibtex. It is also assumed that you have a word processor installed (e.g. MS Word or [LibreOffice](https://www.libreoffice.org/)). You need that software stack to make use of this template.
+This is where the steps to reproduce this repository/analysis will be.
 
-# Template structure
-
+Example:
 * All data goes into the subfolders inside the `data` folder.
 * All code goes into the `code` folder or subfolders.
 * All results (figures, tables, computed values) go into `results` folder or subfolders.
 * All products (manuscripts, supplement, presentation slides, web apps, etc.) go into `products` subfolders.
 * See the various `readme.md` files in those folders for some more information.
 
+# Project Part 1: Question/Hypothesis & Suitable Data
+
+Place the information for Part 1 here.
+
+# Project Part 2: Data Wrangling & Exploration
+
+Place the information for Part 2 here.
+
+# Project Part 3: Beginning Analysis
+
+Place the information for Part 3 here.
+
+# Project Part 4: Completing Analysis
+
+Place the information for Part 4 here.
+
+# Project Part 5: Completed Project and Peer Review
+
+Place the information for Part 5 here.
+
+
+# THE BELOW WAS FROM THE TEMPLATE REPO FOR FUTURE REFERENCE:
 # Template content 
 
 The template comes with a few files that are meant as illustrative examples of the kinds of content you would place in the different folders. See the `readme` files in each folder for more details.
