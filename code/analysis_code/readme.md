@@ -1,1 +1,0 @@
-This folder contains the code which performs the analysis on the processed/cleaned data.

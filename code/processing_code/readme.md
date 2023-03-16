@@ -1,1 +1,0 @@
-This folder contains code for processing/cleaning the data.
