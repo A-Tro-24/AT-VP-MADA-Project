@@ -1,0 +1,36 @@
+---
+title: "Modern Applied Data Analysis Project"
+subtitle: ""
+author: Aidan Troha & Vijay Panthayi
+date: "`r Sys.Date()`"
+format:
+  docx:
+    toc: false
+    number-sections: true
+    highlight-style: github
+bibliography: ../dataanalysis_template_references.bib
+csl: ../apa.csl
+---
+
+```{r setup, include=FALSE}
+# Load necessary packages
+library(readr)
+library(tidyverse)
+```
+
+# Authors
+
+# Abstract
+
+# Introduction
+
+# Methods
+
+# Results
+
+# Discussion
+
+# References
+
+
+
