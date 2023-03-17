@@ -63,7 +63,8 @@ new_gov <- raw_gov %>%
 
 # Identifies the 2020 Per Capita Personal Income by county
 new_econ <- raw_econ %>%
-          dplyr::select(County,`2020 Per Capita Personal Income`)
+          dplyr::select(County,`2020 Per Capita Personal Income`) %>%
+          rename(per_capita_income = `2020 Per Capita Personal Income`)
 
 # Joins the data from the `new_econ` data frame to the `new_deaths` data frame based on the county variable
 join1 <- dplyr::left_join(new_deaths,new_econ,by=c("county"="County"))
@@ -73,7 +74,7 @@ dplyr::glimpse(join1)
 # Joins the data from the `new_gov` data frame to the `join1` data frame based on the county variable
 join2 <- dplyr::left_join(join1,new_gov,by=c("county"="County"))%>%
   # Reorders the variables in the desired order
-dplyr::relocate(county,`2020 Per Capita Personal Income`,party_majority,.before=age)
+dplyr::relocate(county,per_capita_income,party_majority,.before=age)
 
 # Checks that the join worked
 glimpse(join2)
