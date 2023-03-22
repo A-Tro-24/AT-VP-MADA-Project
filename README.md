@@ -16,7 +16,7 @@ Example:
 
 # Project Part 1: Question/Hypothesis & Suitable Data
 
-Place the information for Part 1 here.
+Our project proposal can be found in the products folder in the 'proposal.Rmd' file.
 
 # Project Part 2: Data Wrangling & Exploration
 
