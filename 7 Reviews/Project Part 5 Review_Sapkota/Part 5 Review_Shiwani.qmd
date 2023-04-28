@@ -1,0 +1,143 @@
+---
+title: Project 5 Review
+author: SHIWANI SAPKOTA
+date: "`r file.mtime(knitr::current_input())`"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+---
+
+
+# Overview
+Title of project: Modern Applied Data Analysis Project
+
+Name of project author(s): Aidan Troha & Vijay Panthayi
+
+Name of project reviewer: Shiwani Sapkota
+
+# Specific project content evaluation
+
+## Background, Context and Motivation
+
+### Feedback and Comments
+
+The manuscript is empty so basically there is no project background information available for the review.
+
+### Summary assessment 
+
+* very poor contextualization and motivation
+
+## Question description
+
+### Feedback and Comments
+
+There is no information on research question/hypothesis so it's hard to judge how the questions relate to the data.
+
+### Summary assessment
+
+* question/hypotheses unclear
+
+## Data description
+
+### Feedback and Comments
+
+The data is described well in readme file. But the data source information is missing as the manuscript file is empty.   
+
+### Summary assessment
+
+* source and overall structure of data somewhat explained
+
+## Data wrangling and exploratory analysis
+
+### Feedback and Comments
+
+The data wrangling and exploratory analysis was done well. Data joining and data cleaning was done as a part of cleaning process. It might be personal preference but I would recommend using either R Markdown or Quarto files for analysis as it's easier to see code chunks and their respective results. Somewhat minimal data exploration was done. I would recommend exploring more on the data and adding some aesthetic features to the tables and figures as well.
+
+### Summary assessment
+* some weaknesses in wrangling and exploratory component
+
+## Appropriateness of Analysis
+
+### Feedback and Comments
+
+Only the Lasso model has been explored by the authors. There could be the use of other ML models. Similarly, other regression models could be done for model fitting and evaluation. Could improve a lot in statistical analysis part.
+
+### Summary assessment
+
+* defensible but not optimal analysis
+
+## Presentation
+
+### Feedback and Comments
+
+The results are not organized in a manuscript. There are no separate result files as well. 
+
+### Summary assessment
+
+* results are poorly presented, hard to understand, poor quality
+
+## Discussion/Conclusions
+
+### Feedback and Comments
+
+No discussion part available to review on.
+
+### Summary assessment
+
+* major parts of discussion missing or wrong 
+
+## Further comments
+
+Overall, the study project looks like it still needs a lot of improvements starting from file organization to analysis parts.
+
+# Overall project content evaluation
+
+## Structure
+
+### Feedback and Comments
+
+Overall project structure looks ok but there are many files missing. 
+
+### Summary assessment
+
+* mostly clear, but some confusing parts (e.g. useless files, things in the wrong folders)
+
+## Documentation 
+
+### Feedback and Comments
+
+Comment documentation is missing on fitting models file. Documentation looks ok on other files but there are still rooms for improvements on those as well. Supplementary material folder contains unrelated project's information. 
+
+### Summary assessment
+
+* decently documented with some gaps
+
+## Reproducibility
+
+### Feedback and Comments
+
+The code files are reproducible but will need more comments to follow through the process.
+
+### Summary assessment
+
+* fully reproducible without issues 
+
+## Thoroughness
+
+### Feedback and Comments
+
+The study does not involve much thoroughness. No alternative models have been considered for addressing the research question. The data exploratory parts also seem minimal.
+
+### Summary assessment
+
+* weak level of thoroughness
+
+## Further comments
+
+Overall, the project needs a lots of data and folder organization. The project still needs a good amount of work on analysis section. Manuscript is empty so could not comment much about the major aspects of the study.
+
+
+
+
