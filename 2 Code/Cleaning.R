@@ -36,7 +36,7 @@ dplyr::glimpse(new_deaths)
 deaths <- new_deaths %>%
           dplyr::group_by(county) %>%
           dplyr::count(county) %>%
-          dplyr::rename(`Death Count` = "n")
+          dplyr::rename(death_count = "n")
 
 # Uses the voting proportions from 2020 to identify party majority in each county
 new_gov <- raw_gov %>%
@@ -60,7 +60,7 @@ new_edu <- raw_edu %>%
            dplyr::select(County,`2020-21 Graduates, Number`,`2019 Graduates`)
 # Selects the number of general hospital facilities for each county
 new_med <- raw_med %>%
-           dplyr::select(County,`2021 General Hospital Facilities`)
+           dplyr::select(County,`2021 General Hospital Bed Capacity`)
 
 # Joins the data from the `deaths` data frame to the `new_pop` data frame based on the county variable
 join  <- dplyr::right_join(new_pop,deaths,by=c("County"="county")) %>%
@@ -79,7 +79,9 @@ join  <- dplyr::right_join(new_pop,deaths,by=c("County"="county")) %>%
                                                        ifelse(grad2020 > `2019 Graduates`,1,0)),
                        party_majority = ifelse(party_majority=="Republican",0,1)) %>%
 # Removes the extra variables since we created new variables for them
-         select(!c(`2020-21 Graduates, Number`,`2019 Graduates`))
+         dplyr::select(!c(`2020-21 Graduates, Number`,`2019 Graduates`)) %>%
+         dplyr::rename(pop_projection = `2020 Population Projection`,
+                       hospital_cap = `2021 General Hospital Bed Capacity`)
 # Checks that there are no missing values
 anyNA(join)
 # Checks that the join worked

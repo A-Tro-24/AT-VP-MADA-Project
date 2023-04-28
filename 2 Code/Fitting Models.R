@@ -4,6 +4,8 @@
 ###########################################################
 library(tidymodels)
 library(poissonreg)
+library(sjPlot)
+library(ggplot2)
 
 set.seed(04272023)
 
@@ -12,55 +14,43 @@ dat <- readRDS(here::here("1 Data","Processed","GACOVID_deaths.Rda"))
 data_split <- rsample::initial_split(dat, prop=8/10)
 training_data <- rsample::training(data_split)
 test_data <- rsample::testing(data_split)
-folds <- rsample::vfold_cv(training_data,v=3,repeats=3)
 
-main_rec <- recipes::recipe(`Death Count` ~ party_majority+`2021 General Hospital Facilities`+per_capita_income+grad2020+grad_improve,
-                            data=dat) %>%
-            recipes::step_dummy(all_nominal())
+main_mod <- glm(death_count ~ .-County,
+            data=training_data,
+            family=poisson)
 
-pois_mod <- poisson_reg(mode="regression",
-                        engine="glm")
+null_mod <- update(main_mod, .~1)
 
-pois_wf <- workflow() %>%
-           add_recipe(main_rec)
+sat_mod <- update(main_mod,.~(.-County)^2)
 
-pois_mod <- pois_wf %>%
-            add_model(pois_mod)
+display(null_mod,detail=TRUE,digits=3)
+display(main_mod,detail=TRUE,digits=3)
+display(sat_mod,detail=TRUE,digits=3)
 
-null_resamp <- fit_resamples(pois_mod, folds, metrics = metric_set(rmse),
-                             control = control_resamples(save_pred = TRUE))
-null_resamp %>% collect_metrics()
+lasso_mod_main <- cv.glmnet(model.matrix(main_mod),
+                            cbind(training_data$death_count),
+                            alpha=1,
+                            family=poisson,
+                            nfolds=5)
+lasso_mod_sat <- cv.glmnet(model.matrix(sat_mod),
+                           cbind(training_data$death_count),
+                           alpha=1,
+                           family=poisson,
+                           nfolds=5)
+Lmin_main <- lasso_mod_main$lambda.1se
+Lmin_sat <- lasso_mod_sat$lambda.1se
 
-lasso_mod <- poisson_reg(penalty = tune(), mixture = 1) %>%
-             set_engine("glmnet")
+pdf(here::here("6 Supplemental Material","Main_Lambda_plot.pdf"))
+plot(lasso_mod_main)
+dev.off()
 
-lasso_grid <- tibble::tibble(penalty=10^seq(-5,0,length.out=20))
+pdf(here::here("6 Supplemental Material","Saturated_Lambda_plot.pdf"))
+plot(lasso_mod_sat)
+dev.off()
 
-lasso_wf <- pois_wf %>%
-            add_model(lasso_mod)
 
-lasso_tune_res <- lasso_wf %>%
-                  tune_grid(resample=folds,
-                            grid = lasso_grid,
-                            control = control_grid(save_pred = TRUE),
-                            metrics = metric_set(rmse))
-lasso_tune_res %>% autoplot()
+coef(lasso_mod_main,s=Lmin_main)
+coef(lasso_mod_sat,s=Lmin_sat)
 
-lasso_best <- lasso_tune_res %>%
-              select_best()
-final_lasso <- lasso_wf %>%
-               finalize_workflow(lasso_best)
-
-final_fit <- final_lasso %>%
-             fit(training_data) %>%
-             augment(training_data)
-
-ggplot(aes(`Death Count`,.pred),data=final_fit) +
-  geom_jitter()
-
-final_fit %>%
-  mutate(res = `Death Count` - .pred) %>%
-  ggplot(aes(.pred,res)) +
-  geom_jitter()
-
-saveRDS(final_lasso, here::here("3 Model Fitting","COVID_LASSO.Rda"))
+saveRDS(lasso_mod_main,here::here("3 Model Fitting","COVID_LASSO_main.Rda"))
+saveRDS(lasso_mod_sat, here::here("3 Model Fitting","COVID_LASSO_sat.Rda"))
