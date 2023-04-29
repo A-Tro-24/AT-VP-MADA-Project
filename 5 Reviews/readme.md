@@ -1,1 +1,0 @@
-This folder contains the reviews for Part 3 and Part 5 from the MADA Project.
