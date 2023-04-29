@@ -2,6 +2,7 @@
 #                   Exploring the Clean Data              #
 #                   Aidan T & Vijay P                     #
 ###########################################################
+library(tidyverse)
 library(ggplot2)
 # Imports the data to this R script
 dat1 <- readRDS(here::here("1 Data","Processed","GACOVID_deaths.Rda")) %>% 
@@ -32,7 +33,7 @@ plot2 + geom_histogram(aes(x=age), bins = 45)
 # Plots the number of COVID deaths by sex
 plot2 + geom_bar(aes(x=sex))
 # Plots the number of COVID deaths by majority party
-plot2 + geom_bar(aes(x=party_majority))
+plot1 + geom_bar(aes(x=party_majority))  
 # Plots the number of COVID deaths by whether the subject was known to
 # have had a pre-existing chronic condition
 plot2 + geom_bar(aes(x=chronic_condition))

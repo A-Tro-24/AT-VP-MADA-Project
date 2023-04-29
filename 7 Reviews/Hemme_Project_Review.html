@@ -186,12 +186,12 @@ ul.task-list li input[type="checkbox"] {
 <p>How well is the data overall described? Is the source provided? Is a codebook or other meta-information available that makes it clear what the data is?</p>
 <section id="feedback-and-comments-2" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="feedback-and-comments-2"><span class="header-section-number">2.3.1</span> Feedback and Comments</h3>
-<p>COVID-19 data was explained well in the readme file. Other dataset used in the analysis were not explained.</p>
+<p>Data is well explained. There is no codebook, however, the variables are named in such a way that they are self-explanatory.</p>
 </section>
 <section id="summary-assessment-1" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="summary-assessment-1"><span class="header-section-number">2.3.2</span> Summary assessment</h3>
 <ul>
-<li>source and overall structure of data somewhat explained</li>
+<li>source and overall structure of data well explained</li>
 </ul>
 </section>
 </section>
@@ -214,12 +214,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Were the analysis methods appropriate for the data? Was the analysis done properly? Were different components of the analysis (e.g.&nbsp;performance measure, variable selection, data pre-processing, model evaluation) done in the best way possible and explained well?</p>
 <section id="feedback-and-comments-4" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="feedback-and-comments-4"><span class="header-section-number">2.5.1</span> Feedback and Comments</h3>
-<p>Analysis was absent.</p>
+<p>I am interested to see more exploration of the predictor variables. The decision to use a Poisson model is reasonable given you have count data. I believe that is would be appropriate to use <code>pop_projection</code> as the offset in this case.</p>
+<p><code>glm(death_count ~ other_variables + offset(pop_projection),             data=training_data,             family=poisson)</code></p>
+<p>It might also be beneficial to explore models that account for overdispersion, such as negative binomial regression.</p>
 </section>
 <section id="summary-assessment-3" class="level3" data-number="2.5.2">
 <h3 data-number="2.5.2" class="anchored" data-anchor-id="summary-assessment-3"><span class="header-section-number">2.5.2</span> Summary assessment</h3>
 <ul>
-<li>wrong/inadequate analysis</li>
+<li>defensible but not optimal analysis</li>
 </ul>
 </section>
 </section>
@@ -253,7 +255,6 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="further-comments" class="level2" data-number="2.8">
 <h2 data-number="2.8" class="anchored" data-anchor-id="further-comments"><span class="header-section-number">2.8</span> Further comments</h2>
-<p>There is still a lot of work to do, but I think that you guyrs have the rough outline for an interesting project!</p>
 </section>
 </section>
 <section id="overall-project-content-evaluation" class="level1" data-number="3">
@@ -264,7 +265,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Is the project well structured? Are files in well labeled folders? Do files have reasonable names? Are all “junk” files not needed for analysis/reproduction removed? By just looking at files and folders, can you get an idea of how things fit together?</p>
 <section id="feedback-and-comments-7" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="feedback-and-comments-7"><span class="header-section-number">3.1.1</span> Feedback and Comments</h3>
-<p>Overall, structure was clear, however, there are sections in the readme file (main folder) that belong in the manuscript.</p>
+<p>Overall, structure was clear, but there are sections in the readme file (main folder) that belong in the manuscript.</p>
 </section>
 <section id="summary-assessment-6" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="summary-assessment-6"><span class="header-section-number">3.1.2</span> Summary assessment</h3>
@@ -278,12 +279,12 @@ ul.task-list li input[type="checkbox"] {
 <p>How well is the project documented? Are you able to understand each step of the whole analysis, each decision that was made, and each line of code? Is enough information provided as comments in code or as part of Rmd files?</p>
 <section id="feedback-and-comments-8" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="feedback-and-comments-8"><span class="header-section-number">3.2.1</span> Feedback and Comments</h3>
-<p>Great job!</p>
+<p>The files for Cleaning and Exploration are well-documented. Documentation for Fitting Model was absent.</p>
 </section>
 <section id="summary-assessment-7" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="summary-assessment-7"><span class="header-section-number">3.2.2</span> Summary assessment</h3>
 <ul>
-<li>fully and well documented</li>
+<li>decently documented with some gaps</li>
 </ul>
 </section>
 </section>
