@@ -1,0 +1,147 @@
+---
+title: Project Review Template 
+author: Hayley Hemme
+date: "`r file.mtime(knitr::current_input())`"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+---
+
+# Overview
+
+Title of project: 
+
+Name of project author(s): Aidan Troha and Vijay Panthayi
+
+Name of project reviewer: Hayley Hemme
+
+
+# Specific project content evaluation
+Evaluate the different parts of the project by filling in the sections below.
+
+
+## Background, Context and Motivation
+How well is the context of the project described? Is a comprehensive background, including summary of previous/related work given? Is the project well placed into the context of existing work (including proper referencing of existing work). Is it clear why the project was undertaken and what new information it hopes to provide?
+
+### Feedback and Comments
+
+Absent
+
+### Summary assessment (PICK ONE, DELETE THE OTHERS)
+* very poor contextualization and motivation
+
+## Question description
+How well and clear are the question(s)/hypotheses the project aims to address described? Is it clear how the questions relate to the data?
+
+### Feedback and Comments
+
+From the cleaning and exploration, it seemed like party majority was going to be a predictor of interest. The only location I was able to find a hypothesis was in the readme file of the main folder, however this seemed to incomplete.
+
+### Summary assessment
+* question/hypotheses unclear
+
+## Data description
+How well is the data overall described? Is the source provided? Is a codebook or other meta-information available that makes it clear what the data is? 
+
+### Feedback and Comments
+
+Data is well explained. There is no codebook, however, the variables are named in such a way that they are self-explanatory.
+
+### Summary assessment
+* source and overall structure of data well explained
+
+## Data wrangling and exploratory analysis
+How well is the data cleaned/processed and explored? Are all steps reasonable and well explained? Are alternatives discussed and considered? Are meaningful exploratory results shown (e.g. in the supplementary materials)?
+
+### Feedback and Comments
+
+Data wrangling was executed well. I like that you called on the specific package of the function you wanted to use. Regarding exploration, I am interested to see some summary statistics by age group, sex, etc. I also think that box plots would be a particularly useful in your analysis to visualize differences between groups. 
+
+### Summary assessment
+* some weaknesses in wrangling and exploratory component
+
+## Appropriateness of Analysis
+Were the analysis methods appropriate for the data? Was the analysis done properly? Were different components of the analysis (e.g. performance measure, variable selection, data pre-processing, model evaluation) done in the best way possible and explained well?
+
+### Feedback and Comments
+
+I am interested to see more exploration of the predictor variables. The decision to use a Poisson model is reasonable given you have count data. I believe that is would be appropriate to use `pop_projection` as the offset in this case. 
+
+`glm(death_count ~ other_variables + offset(pop_projection),
+            data=training_data,
+            family=poisson)`
+            
+It might also be beneficial to explore models that account for overdispersion, such as negative binomial regression. 
+
+### Summary assessment
+* defensible but not optimal analysis 
+
+## Presentation
+How well are results presented? Are tables and figures easy to read and understand? Are the main figures/tables publication level quality? 
+
+### Feedback and Comments
+
+Absent
+
+### Summary assessment
+* results are poorly presented, hard to understand, poor quality
+
+## Discussion/Conclusions
+Are the study findings properly discussed? Are strengths and limitations acknowledged? Are findings interpreted properly?
+
+### Feedback and Comments
+
+Absent
+
+### Summary assessment
+* major parts of discussion missing or wrong 
+
+
+## Further comments
+
+
+# Overall project content evaluation
+Evaluate overall features of the project  by filling in the sections below.
+
+
+## Structure
+Is the project well structured? Are files in well labeled folders? Do files have reasonable names? Are all "junk" files not needed for analysis/reproduction removed? By just looking at files and folders, can you get an idea of how things fit together?
+
+### Feedback and Comments
+
+Overall, structure was clear, but there are sections in the readme file (main folder) that belong in the manuscript.
+
+### Summary assessment
+* mostly clear, but some confusing parts (e.g. useless files, things in the wrong folders)
+
+## Documentation 
+How well is the project documented? Are you able to understand each step of the whole analysis, each decision that was made, and each line of code? Is enough information provided as comments in code or as part of Rmd files? 
+
+### Feedback and Comments
+
+The files for Cleaning and Exploration are well-documented. Documentation for Fitting Model was absent.
+
+### Summary assessment
+* decently documented with some gaps
+
+## Reproducibility
+Are all results fully reproducible? Is documentation provided which clearly explains how to reproduce things, and does it work without the need for any manual intervention? Are you able to re-run the whole analysis without having to do manual interventions/edits?
+
+### Feedback and Comments
+
+Things ran without an hiccups! 
+
+### Summary assessment
+* fully reproducible without issues
+
+## Thoroughness
+How thorough was the overall study? Were alternatives (e.g. different ways of processing the data or different models) considered? Were alternatives discussed? Were the questions/hypotheses fully and thoroughly addressed?
+
+### Feedback and Comments
+
+Significant portions of the project were entirely absent, including the analysis. I think that my best advice for you guys would be to think about the data that you have the questions you might be about to answer with it. Even though you have geographic data, you don't necessarily need to use spatial methods develop a model that fits the data well or to provide insight into your research question. 
+
+### Summary assessment
+* weak level of thoroughness
