@@ -17,6 +17,8 @@ data_split <- rsample::initial_split(dat, prop=8/10)
 training_data <- rsample::training(data_split)
 test_data <- rsample::testing(data_split)
 
+saveRDS(test_data, here::here("1 Data","Processed","Test_Data.Rda"))
+
 folds <- rsample::vfold_cv(training_data,v=5,repeats=5)
 
 null_rec <- recipes::recipe(death_count ~ 1,
@@ -28,8 +30,8 @@ main_rec <- recipes::recipe(death_count ~ .,
 
 sat_rec <- recipes::recipe(death_count ~ .,
                            data=training_data[2:8]) %>%
-           recipes::step_interact(terms = ~.^2) %>%
-           recipes::step_dummy(all_nominal())
+           recipes::step_dummy(all_nominal()) %>%
+           recipes::step_interact(terms = ~ .^2)
 
 poi_mod <- poisson_reg() %>%
            set_engine("glm")
@@ -43,13 +45,17 @@ main_wf <- workflow() %>%
 
 sat_wf <- workflow() %>%
           add_recipe(sat_rec)
-####### ADD NULL MODEL HERE
-lasso_mod_main <- glmnet::cv.glmnet(model.matrix(main_mod),
+
+lasso_mod_main <- glmnet::cv.glmnet(model.matrix(glm(death_count ~ .-County,
+                                                     family=poisson,
+                                                     data=training_data)),
                                     cbind(training_data$death_count),
                                     alpha=1,
                                     family=poisson,
                                     nfolds=5)
-lasso_mod_sat <- glmnet::cv.glmnet(model.matrix(sat_mod),
+lasso_mod_sat <- glmnet::cv.glmnet(model.matrix(glm(death_count ~ .-County + (.-County)^2,
+                                                    family=poisson,
+                                                    data=training_data)),
                                    cbind(training_data$death_count),
                                    alpha=1,
                                    family=poisson,
@@ -92,3 +98,5 @@ final_lasso_main <- lasso_main_wf %>%
                     finalize_workflow(best_lasso_main)
 final_lasso_sat <- lasso_sat_wf %>%
                    finalize_workflow(best_lasso_sat)
+saveRDS(final_lasso_main, here::here("3 Model Fitting","GA_COVID_LASSO_MAIN.Rda"))
+saveRDS(final_lasso_sat, here::here("3 Model Fitting","GA_COVID_LASSO_SAT.Rda"))

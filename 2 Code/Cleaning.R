@@ -75,13 +75,14 @@ join  <- dplyr::right_join(new_pop,deaths,by=c("County"="county")) %>%
 # Creates a new variable for the number of graduates for 2020 so that Clay county is included but assumes 0 graduates
          dplyr::mutate(grad2020 = ifelse(is.na(`2020-21 Graduates, Number`),0,`2020-21 Graduates, Number`),
 # Creates a new variable to compare graduation rates from previous years
-                       grad_improve = ifelse(is.na(`2019 Graduates`),0,
-                                                       ifelse(grad2020 > `2019 Graduates`,1,0)),
-                       party_majority = ifelse(party_majority=="Republican",0,1)) %>%
+                       grad_improve = as.factor(ifelse(is.na(`2019 Graduates`),0,
+                                                             ifelse(grad2020 > `2019 Graduates`,1,0))),
+                       party_majority = factor(party_majority)) %>%
 # Removes the extra variables since we created new variables for them
          dplyr::select(!c(`2020-21 Graduates, Number`,`2019 Graduates`)) %>%
          dplyr::rename(pop_projection = `2020 Population Projection`,
-                       hospital_cap = `2021 General Hospital Bed Capacity`)
+                       hospital_cap = `2021 General Hospital Bed Capacity`) %>%
+         dplyr::relocate(death_count,.after=County)
 # Checks that there are no missing values
 anyNA(join)
 # Checks that the join worked
