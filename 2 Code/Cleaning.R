@@ -77,7 +77,8 @@ join  <- dplyr::right_join(new_pop,deaths,by=c("County"="county")) %>%
 # Creates a new variable to compare graduation rates from previous years
                        grad_improve = as.factor(ifelse(is.na(`2019 Graduates`),0,
                                                              ifelse(grad2020 > `2019 Graduates`,1,0))),
-                       party_majority = factor(party_majority)) %>%
+                       party_majority = factor(party_majority),
+                       per_capita_income = log(per_capita_income)) %>%
 # Removes the extra variables since we created new variables for them
          dplyr::select(!c(`2020-21 Graduates, Number`,`2019 Graduates`)) %>%
          dplyr::rename(pop_projection = `2020 Population Projection`,

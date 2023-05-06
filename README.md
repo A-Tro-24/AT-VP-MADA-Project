@@ -50,19 +50,19 @@ We plan to test the data using some sort of regression analysis or odds ratio to
 
 # Project Part 2: Data Wrangling & Exploration
 
-Place the information for Part 2 here.
+Data wrangling efforts can be found in the `Cleaning.R` file, found in the `2 Code` folder. Products can be found in the `Figures` folder from the `4 Products` folder.
 
 # Project Part 3: Beginning Analysis
 
-Place the information for Part 3 here.
+Data exploration efforts can be found in the `Exploration.R` file, found in the `2 Code` folder. Products can be found in the `Figures` folder from the `4 Products` folder.
 
 # Project Part 4: Completing Analysis
 
-Place the information for Part 4 here.
+Model fitting and analyses can be found in the `Model_Fitting.R` and `Model_Performance.R` files, found in the `2 Code` folder. Products can be found in the `3 Model Fitting` and `4 Products` folders, respectively.
 
 # Project Part 5: Completed Project and Peer Review
 
-Place the information for Part 5 here.
+The project manuscript can be found in the `5 Manuscript` folder, and peer reviews can be found in the `7 Reviews` folder. All other resources not pertaining to the analyses explained in the manuscript can be found in the `6 Supplemental Material` folder.
 
 
 # THE BELOW WAS FROM THE TEMPLATE REPO FOR FUTURE REFERENCE:
