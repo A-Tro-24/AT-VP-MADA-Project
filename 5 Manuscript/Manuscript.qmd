@@ -20,6 +20,8 @@ library(tidyverse)
 
 # Abstract
 
+Data is obtained from the Georgia Department of Public Health (GDPH) on deaths attributed to COVID-19 and from the University of Georgia's Carl Vinson Institute on county-wide economic and political data. LASSO (Least Absolute Shrinkage and Selection Operator) methodology is employed to select the most effective, simplest model to predict county-wide COVID-19 deaths in Georgia. Poisson regression is employed to estimate the total number of COVID-19 related deaths per county. Predictors included in the model were high school graduation rates, hospital bed capacity, and log per capita income and includes interaction terms.
+
 # Introduction
 
 ## Background
@@ -116,13 +118,19 @@ Figure 7 shows a similar comparison between the two models wherein the saturated
 knitr::include_graphics(here::here("4 Products","Figures","Mod_Effects.pdf"))
 ```
 
-
+The generated model depends largely on 3 main effect parameters: hospital bed capacity, log per capita income, and high school graduation rate. Figure 8 above demonstrates the relationships each of the three predictors has with deaths from COVID-19 in accordance with their interaction terms. Deaths attributed to COVID-19 appear to increase with increasing hospital bed capacity. Log per capita income varies relatively little with respect to COVID deaths. High school graduation rates and COVID deaths appear to be positively correlated.
 
 # Discussion
 
+From the predictors originally chosen, only a few appeared to effectively detect a strong relationship with deaths attributable to COVID-19. Based on the LASSO cross-validation methods used in the analyses, the interaction terms are integral to understanding the multifacetted interactions between these predictors that influence the rate of COVID deaths at the county level in Georgia.
 
+Based on these findings, an in-depth analysis of demographics not included in this study should be obtained. Many of the predictors discussed in this study influence or are influenced by demographics such as race or religion. These could account for the wide variation seen in the model and could help to better tune future models since other studies have shown that racial disparities have a strong influence on COVID death rates (@Karmakar2021).
+
+In addition, other cross-validation methodologies may be employed to better tune the model such as a the use of decision trees or random forest analysis. An issue with LASSO is that it often forces out predictors without regard to model hierarchy. This occurs when main effects removed from the model (their coefficient(s) are reduced to zero) while interaction terms with that predictor remain in the model. Other methodologies do not have this problem and could better account for these types of situations.
 
 # Conclusion
+
+Of the predictors included in the models produced from these analyses, hospital bed capacity, log per capita income, and high school graduation rates appeared to be important predictors in the saturated model which out performed the main effects model. These predictors show positive correlation with COVID deaths in Georgia, though further analyses should include demographics data at the individual level to better refine the model.
 
 # References
 
