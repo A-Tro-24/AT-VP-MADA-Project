@@ -45,15 +45,13 @@ ggsave(here::here("4 Products","Figures","Exploration4.pdf"))
 
 # Uses the base plot to generate a scatter plot and trendline comparing the number of high school
 # grduates to the number of COVID deaths
-plot1 + geom_point(aes(x=grad2020,y=death_count)) +
-        geom_smooth(aes(x=grad2020,y=death_count))  +
-        labs(x="Number of High School Graduates by County",
-             y="Deaths Attributed to COVID-19")
-ggsave(here::here("4 Products","Figures","Exploration5.pdf"))
-
-# Uses the base plot to generate a box plot of comparing the distributions of COVID deaths between
-# counties with improved graduates rates vs counties with unimproved graduation rates
-plot1 + geom_boxplot(aes(x=grad_improve,y=death_count)) +
-        labs(x="Status of High School Graduation Rates",
-             y="Deaths Attributed to COVID-19")
-ggsave(here::here("4 Products","Figures","Exploration6.pdf"))
+ggsave(here::here("4 Products","Figures","Exploration5.pdf"),
+       gridExtra::grid.arrange(
+                  plot1 + geom_point(aes(x=grad2020,y=death_count)) +
+                          geom_smooth(aes(x=grad2020,y=death_count))  +
+                          labs(x="Number of High School \n Graduates by County",
+                               y="Deaths Attributed to COVID-19"),
+                  plot1 + geom_boxplot(aes(x=grad_improve,y=death_count)) +
+                          labs(x="Status of High School \n Graduation Rates",
+                               y=""),
+         ncol=2))

@@ -1,15 +1,15 @@
 ---
 title: "Modern Applied Data Analysis Project"
 subtitle: ""
-author: Aidan Troha & Vijay Panthayi
+author: Aidan Troha - College of Public Health, University of Georgia
 date: "`r Sys.Date()`"
 format:
   docx:
     toc: false
     number-sections: true
     highlight-style: github
-bibliography: ../dataanalysis_template_references.bib
-csl: ../apa.csl
+bibliography: references.bib
+csl: apa.csl
 ---
 
 ```{r setup, include=FALSE}
@@ -18,17 +18,71 @@ library(readr)
 library(tidyverse)
 ```
 
-# Authors
-
 # Abstract
 
 # Introduction
 
+## Background
+
+## Objectives
+
 # Methods
+
+## Data Acquisition
+
+## Analysis Steps
 
 # Results
 
+## Exploratory Analysis
+
+```{r COVID Deaths by Projected 2020 Population for each Georgia County,echo=FALSE, fig.cap="Figure 1. Number of deaths from COVID-19 by county in Georgia by the projected population for 2020. Trend line represents the estimates association between projected population and number of deaths attributed to COVID-19; grey area represents the 95% confidence interval for the trend line.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Exploration1.pdf"))
+```
+
+```{r COVID Deaths by Party Majority, fig.cap="Figure 2. Distribution of deaths attibuted to COVID-19 by county in Georgia separated by party majority in 2020 (>50%) for each county.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Exploration2.pdf"))
+```
+
+
+```{r COVID Deaths by Hospital Bed Capacity, fig.cap="Figure 3. Number of deaths from COVID-19 by county in Georgia by hospital bed capacity in 2020. Trend line represents the estimates association between hospital bed capacity and number of deaths attributed to COVID-19; grey area represents the 95% confidence interval for the trend line.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Exploration3.pdf"))
+```
+
+
+```{r COVID Deaths by Log Per Capita Income, fig.cap="Figure 4. Number of deaths from COVID-19 by county in Georgia by log per capita income in 2020. Trend line represents the estimated association between log per capita income and number of deaths attributed to COVID-19; grey area represents the 95% confidence interval for the trend line.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Exploration4.pdf"))
+```
+
+
+```{r COVID Deaths by High School Graduation Rate, fig.cap="Figure 5. (Left) Number of deaths from COVID-19 by county in Gerogia by high school graduation rate in 2020. Trend line represents the estimated association between graduation rate and number of deaths attributed to COVID-19; grey area represents the 95% confidence interval for the trend line. (Right) Distribution of deaths attributed to COVID-19 in the State of Georgia organized by county graduation status ('Improved' or 'Not Improved').", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Exploration5.pdf"))
+```
+
+## Regression Modeling
+
+## Model Performance
+
+```{r Model Comparison Linear, fig.cap="Figure 6. (Left) Main effects model predictions compared to observed number of deaths by county. (Right) Saturated model predictions compared to observed values by county. Dashed line represents a 1-to-1 interaction between observed and expected values.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Model_Eval1.pdf"))
+```
+
+
+```{r Model Comparison Residuals, fig.cap="Figure 7. (Left) Main effects model residuals compared to the observed number of deaths by county. (Right) Saturated model residuals compared to the observed number of deaths by county. Red line indicates a residual of 0. Blue dashed lines represent 2 RMSE values away from 0.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Model_Eval2.pdf"))
+```
+
+### Predictors
+
+```{r Model Effects, fig.cap="Figure 8. (Top Left) Association between hospital bed capacity and the number of COVID-19 related deaths by county in Georgia. (Top Right) Association between log per capita income and the number of COVID-19 related deaths by county in Georgia. (Bottom) Association between high school graduation rate and the number of COVID-19 related deaths by county in Georgia. Trend lines represent predictions from the model with grey areas representing 95% confidence interval values.", echo=FALSE}
+knitr::include_graphics(here::here("4 Products","Figures","Mod_Effects.pdf"))
+```
+
 # Discussion
+
+## Strengths & Limitations
+
+# Conclusion
 
 # References
 
