@@ -36,10 +36,11 @@ knitr::kable(tidy(test_main))
 knitr::kable(tidy(test_sat))
 # Compares and organizes the RMSE for each of the main effects model and the 
 # saturated model
-knitr::kable(data.frame("RMSE for Main Model" = 
-                          c(sqrt(sum(test_main_pred$res2)/(nrow(test_main_pred)-1))),
-                        "RMSE for Main Model and Interactions" = 
-                          c(sqrt(sum(test_sat_pred$res2)/(nrow(test_sat_pred)-1)))))
+saveRDS(data.frame("RMSE for Main Model" = 
+                   c(sqrt(sum(test_main_pred$res2)/(nrow(test_main_pred)-1))),
+                   "RMSE for Main Model and Interactions" = 
+                   c(sqrt(sum(test_sat_pred$res2)/(nrow(test_sat_pred)-1)))),
+        here::here("4 Products","Figures","RMSE_results.Rda"))
 
 # Compares the fit of the main effects lasso model to the original data
 ggsave(here::here("4 Products","Figures","Model_Eval1.pdf"),
